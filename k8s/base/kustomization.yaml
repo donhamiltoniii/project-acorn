@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - namespace.yaml
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml
+
+commonLabels:
+  app: project-acorn
+  version: v1.0.0
+
+images:
+  - name: project-acorn-image
+    newName: ghcr.io/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME
+    newTag: latest

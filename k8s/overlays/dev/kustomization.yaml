@@ -1,0 +1,23 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+
+namePrefix: dev-
+nameSuffix: -dev
+
+commonLabels:
+  environment: dev
+
+patchesStrategicMerge:
+  - deployment-patch.yaml
+  - ingress-patch.yaml
+
+images:
+  - name: project-acorn-image
+    newTag: dev-latest
+
+replicas:
+  - name: project-acorn
+    count: 1

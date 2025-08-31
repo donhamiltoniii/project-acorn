@@ -1,0 +1,8 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: project-acorn-ingress
+  namespace: project-acorn
+spec:
+  rules:
+    - host: project-acorn.yourdomain.com # Your actual domain

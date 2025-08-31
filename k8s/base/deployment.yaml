@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project-acorn
+  namespace: project-acorn
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: website=ghcr.io/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME
+    argocd-image-updater.argoproj.io/write-back-method: git
+    argocd-image-updater.argoproj.io/git-branch: main
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: project-acorn
+  template:
+    metadata:
+      labels:
+        app: project-acorn
+    spec:
+      imagePullSecrets:
+        - name: ghcr-secret
+      containers:
+        - name: website
+          image: project-acorn-image # This will be replaced by Kustomize
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "200m"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5
