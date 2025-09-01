@@ -8,25 +8,33 @@
     <script defer src="script.js"></script>
   </head>
   <body>
-    <header class="[ layout-header ]">
-      <h3 class="[ layout-header__title ]">Acorn</h3>
-    </header>
-    <main>
-      <h1>Project Acorn</h1>
-      <h2>A Place to Grow</h2>
+    <div class="[ page-wrapper ] [ grid-container ]">
+      <header class="[ layout-header ]">
+        <h3 class="[ layout-header__title ]">Acorn</h3>
+      </header>
+      <main class="[ max-width-container ]">
+        <h1>Project Acorn</h1>
+        <h2>A Place to Grow</h2>
 
-      <p>
-        This is just an example site to grow into something that looks more
-        enterprisey.
-      </p>
+        <p>
+          This is just an example site to grow into something that looks more
+          enterprisey.
+        </p>
 
-      <h3>Stuff I'm Learning</h3>
-      <ul>
-        <li><a href="https://cube.fyi/">CubeCSS</a></li>
-      </ul>
-    </main>
-    <footer>
-      <small>&copy; 2025 Dondon Developments</small>
-    </footer>
+        <h3>Stuff I'm Learning</h3>
+        <ul>
+          <li><a href="https://cube.fyi/">CubeCSS</a></li>
+        </ul>
+      </main>
+      <footer>
+        <small>&copy; 2025 Dondon Developments</small>
+      </footer>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        new App();
+      });
+    </script>
   </body>
 </html>
