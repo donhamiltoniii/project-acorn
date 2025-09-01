@@ -11,6 +11,7 @@ commonLabels:
   environment: prod
 
 patchesStrategicMerge:
+  - namespace-patch.yaml
   - deployment-patch.yaml
   - ingress-patch.yaml
 
