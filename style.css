@@ -1,4 +1,38 @@
+:root {
+  --base-spacer: 1rem
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.grid-container {
+  display: grid;
+}
+
 .layout-header {
   background-color: rgb(73, 206, 55);
-  color: #444444
+  color: #444444;
+  display: flex;
+  padding: var(--base-spacer, 1rem);
+
+  * {
+    margin: 0;
+  }
+}
+
+.max-width-container {
+  margin-inline: auto;
+  max-width: 80rem;
+  width: 90%;
+}
+
+.page-wrapper {
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
 }
