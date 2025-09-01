@@ -6,3 +6,12 @@ metadata:
 spec:
   rules:
     - host: project-acorn.k3s.syntaxandsymbols.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: project-acorn-service # Kustomize will transform this
+                port:
+                  number: 80
