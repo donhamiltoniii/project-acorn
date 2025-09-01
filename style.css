@@ -11,6 +11,15 @@ body {
   margin: 0;
 }
 
+.flex-container {
+  display: flex;
+}
+
+.flex-centered {
+  align-items: center;
+  justify-content: center;
+}
+
 .grid-container {
   display: grid;
 }
@@ -30,6 +39,10 @@ body {
   margin-inline: auto;
   max-width: 80rem;
   width: 90%;
+}
+
+.page-footer {
+  padding: var(--base-spacer, 1rem);
 }
 
 .page-wrapper {
