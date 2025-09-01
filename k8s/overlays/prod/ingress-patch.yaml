@@ -5,4 +5,4 @@ metadata:
   namespace: project-acorn
 spec:
   rules:
-    - host: project-acorn.yourdomain.com # Your actual domain
+    - host: project-acorn.k3s.syntaxandsymbols.com
