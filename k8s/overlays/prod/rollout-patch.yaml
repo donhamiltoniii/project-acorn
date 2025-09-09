@@ -38,5 +38,10 @@ spec:
             periodSeconds: 5
   strategy:
     blueGreen:
+      activeService: prod-project-acorn-service-prod
+      previewService: prod-project-acorn-preview-service-prod
+      trafficRouting:
+        traefik:
+          weightedTraefikServiceName: prod-project-acorn-traefik-weighted-prod
       autoPromotionEnabled: false
       scaleDownDelaySeconds: 600
