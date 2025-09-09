@@ -1,18 +1,17 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - namespace.yaml
-  - rollout.yaml
-  - services.yaml
-  - traefik-service.yaml
-  - ingress.yaml
-  - preview-ingress.yaml
-labels:  # Updated from commonLabels
-  - includeSelectors: false
-    pairs:
-      app: project-acorn
-      version: v1.0.0
+- namespace.yaml
+- rollout.yaml
+- services.yaml
+- traefik-service.yaml
+- ingress.yaml
+- preview-ingress.yaml
+labels:
+- pairs:
+    app: project-acorn
+    version: v1.0.0
 images:
-  - name: project-acorn-image
-    newName: ghcr.io/donhamiltoniii/project-acorn
-    newTag: latest
+- name: project-acorn-image
+  newName: ghcr.io/donhamiltoniii/project-acorn
+  newTag: latest
