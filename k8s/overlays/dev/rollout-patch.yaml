@@ -6,6 +6,7 @@ metadata:
   annotations:
     argocd-image-updater.argoproj.io/git-branch: develop
 spec:
+  replicas: 1  # Move replicas here
   template:
     spec:
       containers:

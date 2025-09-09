@@ -15,6 +15,3 @@ images:
   - name: project-acorn-image
     newName: ghcr.io/donhamiltoniii/project-acorn
     newTag: latest
-replicas:
-  - name: project-acorn
-    count: 3
