@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: success-rate-analysis
+  namespace: project-acorn
+spec:
+  args:
+  - name: service-name
+  metrics:
+  - name: success-rate
+    interval: 30s
+    count: 10  # More measurements for production
+    successCondition: result[0] >= 0.99  # Higher success rate requirement
+    failureCondition: result[0] < 0.95
+    provider:
+      prometheus:
+        address: http://prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090
+        query: |
+          sum(irate(
+            traefik_service_requests_total{service="{{args.service-name}}",code!~"5.."}[5m]
+          )) / 
+          sum(irate(
+            traefik_service_requests_total{service="{{args.service-name}}"}[5m]
+          ))
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: latency-analysis
+  namespace: project-acorn
+spec:
+  args:
+  - name: service-name
+  metrics:
+  - name: p95-latency
+    interval: 30s
+    count: 5
+    successCondition: result[0] <= 0.5  # P95 latency under 500ms
+    failureCondition: result[0] > 1.0   # Fail if over 1 second
+    provider:
+      prometheus:
+        address: http://prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090
+        query: |
+          histogram_quantile(0.95,
+            sum(irate(
+              traefik_service_request_duration_seconds_bucket{service="{{args.service-name}}"}[5m]
+            )) by (le)
+          )

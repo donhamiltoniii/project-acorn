@@ -1,5 +1,5 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: project-acorn
   namespace: project-acorn
@@ -9,6 +9,15 @@ metadata:
     argocd-image-updater.argoproj.io/git-branch: main
 spec:
   replicas: 2
+  strategy:
+    blueGreen:
+      trafficRouting:
+        traefik:
+          weightedTraefikServiceName: project-acorn-traefik-weighted
+      activeService: project-acorn-service
+      previewService: project-acorn-preview-service
+      autoPromotionEnabled: false
+      scaleDownDelaySeconds: 30
   selector:
     matchLabels:
       app: project-acorn
@@ -21,7 +30,7 @@ spec:
         - name: ghcr-secret
       containers:
         - name: website
-          image: project-acorn-image # This will be replaced by Kustomize
+          image: project-acorn-image  # Replaced by Kustomize
           ports:
             - containerPort: 80
           resources:

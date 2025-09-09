@@ -1,8 +1,10 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: project-acorn
   namespace: project-acorn
+  annotations:
+    argocd-image-updater.argoproj.io/git-branch: main
 spec:
   template:
     spec:
@@ -18,3 +20,7 @@ spec:
           env:
             - name: ENVIRONMENT
               value: "production"
+  strategy:
+    blueGreen:
+      autoPromotionEnabled: false
+      scaleDownDelaySeconds: 600

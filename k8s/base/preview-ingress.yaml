@@ -1,20 +1,19 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: project-acorn-ingress
+  name: project-acorn-preview-ingress
   namespace: project-acorn
   annotations:
     kubernetes.io/ingress.class: "traefik"
-    traefik.ingress.kubernetes.io/service.name: project-acorn-traefik-weighted
 spec:
   rules:
-    - host: project-acorn.local
+    - host: preview.project-acorn.local
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: project-acorn-traefik-weighted
+                name: project-acorn-preview-service
                 port:
                   number: 80

@@ -1,0 +1,14 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: TraefikService
+metadata:
+  name: project-acorn-traefik-weighted
+  namespace: project-acorn
+spec:
+  weighted:
+    services:
+    - name: project-acorn-service
+      port: 80
+      weight: 100
+    - name: project-acorn-preview-service
+      port: 80
+      weight: 0

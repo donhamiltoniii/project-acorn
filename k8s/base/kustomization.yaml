@@ -3,10 +3,11 @@ kind: Kustomization
 
 resources:
   - namespace.yaml
-  - deployment.yaml
-  - service.yaml
+  - rollout.yaml
+  - services.yaml
+  - traefik-service.yaml
   - ingress.yaml
-
+  - preview-ingress.yaml
 commonLabels:
   app: project-acorn
   version: v1.0.0
