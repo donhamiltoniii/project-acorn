@@ -34,6 +34,17 @@ replacements:
         fieldPaths:
           - spec.weighted.services.[name=project-acorn-preview-service].name
 
+  - source:
+      kind: TraefikService
+      name: project-acorn-traefik-weighted
+      fieldPath: metadata.name
+    targets:
+      - select:
+          kind: Ingress
+          name: project-acorn-ingress
+        fieldPaths:
+          - metadata.annotations.[traefik.ingress.kubernetes.io/service.name]
+
 images:
   - name: project-acorn-image
     newName: ghcr.io/donhamiltoniii/project-acorn
