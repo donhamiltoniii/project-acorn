@@ -5,13 +5,6 @@ resources:
   - ../../base
 namePrefix: dev-
 nameSuffix: -dev
-# Remove the global labels that cause conflicts
-# labels:
-#   - includeSelectors: false
-#     pairs:
-#       environment: dev
-commonLabels:  # Use commonLabels instead for metadata only
-  environment: dev
 patches:
   - path: rollout-patch.yaml
   - path: ingress-patch.yaml

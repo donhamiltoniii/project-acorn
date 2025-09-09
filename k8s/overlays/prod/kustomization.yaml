@@ -5,9 +5,6 @@ resources:
   - ../../base
 namePrefix: prod-
 nameSuffix: -prod
-# Remove the global labels that cause conflicts
-commonLabels:  # Use commonLabels instead
-  environment: prod
 patches:
   - path: rollout-patch.yaml
   - path: ingress-patch.yaml
