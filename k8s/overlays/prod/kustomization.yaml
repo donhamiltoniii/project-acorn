@@ -45,6 +45,17 @@ replacements:
         fieldPaths:
           - metadata.annotations.[traefik.ingress.kubernetes.io/service.name]
 
+  - source:
+      kind: Service
+      name: project-acorn-service
+      fieldPath: metadata.name
+    targets:
+      - select:
+          kind: Ingress
+          name: project-acorn-ingress
+        fieldPaths:
+          - spec.rules.[host=project-acorn.local].http.paths.[path=/].backend.service.name
+
 images:
   - name: project-acorn-image
     newName: ghcr.io/donhamiltoniii/project-acorn
