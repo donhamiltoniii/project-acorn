@@ -9,6 +9,7 @@ patches:
   - path: rollout-patch.yaml
   - path: ingress-patch.yaml
   - path: preview-ingress-patch.yaml
+  - path: traefik-service-patch.yaml
 images:
   - name: project-acorn-image
     newName: ghcr.io/donhamiltoniii/project-acorn
