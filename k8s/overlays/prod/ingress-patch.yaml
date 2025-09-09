@@ -12,6 +12,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: project-acorn-traefik-weighted
+                name: prod-project-acorn-traefik-weighted-prod
                 port:
                   number: 80
