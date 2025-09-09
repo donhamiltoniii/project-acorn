@@ -12,6 +12,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: prod-project-acorn-traefik-weighted-prod
+                name: project-acorn-service  # Use base name, let Kustomize transform it
                 port:
                   number: 80

@@ -10,8 +10,11 @@ patches:
   - path: rollout-patch.yaml
   - path: ingress-patch.yaml
   - path: preview-ingress-patch.yaml
+  # Remove traefik-service-patch.yaml since we're using replacements
 
+# Keep your existing replacements for TraefikService references
 replacements:
+  # Update the active service reference in TraefikService
   - source:
       kind: Service
       name: project-acorn-service
@@ -23,6 +26,7 @@ replacements:
         fieldPaths:
           - spec.weighted.services.[name=project-acorn-service].name
   
+  # Update the preview service reference in TraefikService
   - source:
       kind: Service
       name: project-acorn-preview-service
@@ -34,6 +38,7 @@ replacements:
         fieldPaths:
           - spec.weighted.services.[name=project-acorn-preview-service].name
 
+  # Fix Ingress Traefik annotation to reference correct TraefikService
   - source:
       kind: TraefikService
       name: project-acorn-traefik-weighted
@@ -44,17 +49,6 @@ replacements:
           name: project-acorn-ingress
         fieldPaths:
           - metadata.annotations.[traefik.ingress.kubernetes.io/service.name]
-
-  - source:
-      kind: Service
-      name: project-acorn-service
-      fieldPath: metadata.name
-    targets:
-      - select:
-          kind: Ingress
-          name: project-acorn-ingress
-        fieldPaths:
-          - spec.rules.[host=project-acorn.local].http.paths.[path=/].backend.service.name
 
 images:
   - name: project-acorn-image
