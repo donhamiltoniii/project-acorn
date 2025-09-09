@@ -5,11 +5,35 @@ resources:
   - ../../base
 namePrefix: dev-
 nameSuffix: -dev
+
 patches:
   - path: rollout-patch.yaml
   - path: ingress-patch.yaml
   - path: preview-ingress-patch.yaml
-  - path: traefik-service-patch.yaml
+
+replacements:
+  - source:
+      kind: Service
+      name: project-acorn-service
+      fieldPath: metadata.name
+    targets:
+      - select:
+          kind: TraefikService
+          name: project-acorn-traefik-weighted
+        fieldPaths:
+          - spec.weighted.services.[name=project-acorn-service].name
+  
+  - source:
+      kind: Service
+      name: project-acorn-preview-service
+      fieldPath: metadata.name
+    targets:
+      - select:
+          kind: TraefikService
+          name: project-acorn-traefik-weighted
+        fieldPaths:
+          - spec.weighted.services.[name=project-acorn-preview-service].name
+
 images:
   - name: project-acorn-image
     newName: ghcr.io/donhamiltoniii/project-acorn
