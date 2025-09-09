@@ -2,18 +2,17 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: project-acorn-prod
 resources:
-- ../../base
+  - ../../base
 namePrefix: prod-
 nameSuffix: -prod
-images:
-- name: project-acorn-image
-  newName: ghcr.io/donhamiltoniii/project-acorn
-  newTag: latest
-labels:
-- includeSelectors: true
-  pairs:
-    environment: prod
+# Remove the global labels that cause conflicts
+commonLabels:  # Use commonLabels instead
+  environment: prod
 patches:
-- path: rollout-patch.yaml
-- path: ingress-patch.yaml
-- path: preview-ingress-patch.yaml
+  - path: rollout-patch.yaml
+  - path: ingress-patch.yaml
+  - path: preview-ingress-patch.yaml
+images:
+  - name: project-acorn-image
+    newName: ghcr.io/donhamiltoniii/project-acorn
+    newTag: latest
