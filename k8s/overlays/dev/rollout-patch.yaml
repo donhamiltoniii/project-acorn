@@ -6,11 +6,12 @@ metadata:
   annotations:
     argocd-image-updater.argoproj.io/git-branch: develop
 spec:
-  replicas: 1  # Move replicas here
+  replicas: 1
   template:
     spec:
       containers:
         - name: website
+          image: ghcr.io/donhamiltoniii/project-acorn:dev-latest
           resources:
             requests:
               memory: "32Mi"
@@ -21,6 +22,20 @@ spec:
           env:
             - name: ENVIRONMENT
               value: "development"
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5
   strategy:
     blueGreen:
       autoPromotionEnabled: true
